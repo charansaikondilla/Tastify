@@ -131,7 +131,7 @@ const App: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50 relative">
             <EmberfallOverlay />
-            <main className="pb-24 relative z-10">
+            <main className="pb-16 sm:pb-20 relative z-10">
                 <Hero />
                 <OfferHighlight offers={offers} />
                 <AISearch 

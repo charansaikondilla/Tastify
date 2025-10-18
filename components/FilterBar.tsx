@@ -34,15 +34,15 @@ const FilterBar: React.FC<FilterBarProps> = ({ activeCategory, activeSubCategory
     const subCategories = activeCategory !== 'All' ? SUB_CATEGORIES_MAP[activeCategory] : [];
 
     return (
-        <div className={`sticky top-0 z-20 bg-slate-50/80 backdrop-blur-md py-4 shadow-md shadow-slate-900/5 transition-opacity ${disabled ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-            <fieldset disabled={disabled} className="px-4 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <div className={`sticky top-0 z-20 bg-slate-50/95 backdrop-blur-md py-3 sm:py-4 shadow-md shadow-slate-900/5 transition-opacity ${disabled ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+            <fieldset disabled={disabled} className="px-3 sm:px-4 space-y-3 sm:space-y-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 {/* Dietary Toggles */}
-                <div className="flex justify-center space-x-2">
+                <div className="flex justify-center space-x-2 sm:space-x-3">
                     {dietaryOptions.map(opt => (
                         <button
                             key={opt.value}
                             onClick={() => handleDietaryChange(opt.value)}
-                            className={`px-5 py-1.5 text-sm font-semibold rounded-full border-2 transition-all duration-300 ${
+                            className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-full border-2 transition-all duration-300 active:scale-95 ${
                                 activeDietary === opt.value
                                     ? opt.activeColor
                                     : opt.color
@@ -54,39 +54,43 @@ const FilterBar: React.FC<FilterBarProps> = ({ activeCategory, activeSubCategory
                 </div>
                 
                 {/* Main Category Filters */}
-                <div className="flex space-x-3 overflow-x-auto no-scrollbar justify-start sm:justify-center -mx-4 px-4 pb-2">
-                    {CATEGORIES.map(category => (
-                        <button
-                            key={category}
-                            onClick={() => handleCategoryChange(category)}
-                            className={`flex-shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                                activeCategory === category
-                                    ? 'bg-red-600 text-white shadow-md shadow-red-500/20'
-                                    : 'bg-white text-slate-700 hover:bg-slate-100 shadow-sm border border-slate-200'
-                            }`}
-                        >
-                            {category}
-                        </button>
-                    ))}
+                <div className="relative scroll-fade">
+                    <div className="flex space-x-2 sm:space-x-3 overflow-x-auto no-scrollbar snap-x justify-start sm:justify-center -mx-3 sm:-mx-4 px-3 sm:px-4 pb-2">
+                        {CATEGORIES.map(category => (
+                            <button
+                                key={category}
+                                onClick={() => handleCategoryChange(category)}
+                                className={`flex-shrink-0 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap active:scale-95 ${
+                                    activeCategory === category
+                                        ? 'bg-red-600 text-white shadow-md shadow-red-500/20'
+                                        : 'bg-white text-slate-700 hover:bg-slate-100 shadow-sm border border-slate-200'
+                                }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Sub-Category Filters */}
                 <div className={`transition-all duration-500 ease-in-out overflow-hidden ${subCategories.length > 0 ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
                      {subCategories.length > 0 && (
-                        <div className="flex space-x-2 overflow-x-auto no-scrollbar justify-start sm:justify-center -mx-4 px-4 pt-2 border-t border-slate-200">
-                            {subCategories.map(subCat => (
-                                <button
-                                    key={subCat}
-                                    onClick={() => handleSubCategoryChange(subCat)}
-                                    className={`flex-shrink-0 px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
-                                        activeSubCategory === subCat
-                                            ? 'bg-red-600 text-white'
-                                            : 'bg-slate-200 text-slate-600 hover:bg-slate-300'
-                                    }`}
-                                >
-                                    {subCat}
-                                </button>
-                            ))}
+                        <div className="relative scroll-fade">
+                            <div className="flex space-x-2 overflow-x-auto no-scrollbar snap-x justify-start sm:justify-center -mx-3 sm:-mx-4 px-3 sm:px-4 pt-2 border-t border-slate-200">
+                                {subCategories.map(subCat => (
+                                    <button
+                                        key={subCat}
+                                        onClick={() => handleSubCategoryChange(subCat)}
+                                        className={`flex-shrink-0 px-3 py-1.5 text-xs font-semibold rounded-full transition-colors whitespace-nowrap active:scale-95 ${
+                                            activeSubCategory === subCat
+                                                ? 'bg-red-600 text-white'
+                                                : 'bg-slate-200 text-slate-600 hover:bg-slate-300'
+                                        }`}
+                                    >
+                                        {subCat}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>

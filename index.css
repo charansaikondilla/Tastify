@@ -1,0 +1,505 @@
+/* ============================================
+   MOBILE-FIRST GLOBAL STYLES
+   ============================================ */
+
+/* Reset and base styles */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  /* Prevent pull-to-refresh on mobile */
+  overscroll-behavior-y: contain;
+}
+
+/* ============================================
+   SMOOTH SCROLLING & TOUCH OPTIMIZATION
+   ============================================ */
+
+/* Enable momentum scrolling on iOS */
+.overflow-scroll,
+.overflow-x-auto,
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Snap scrolling for carousels */
+.snap-x {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 1rem;
+}
+
+.snap-x > * {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ============================================
+   MOBILE-OPTIMIZED TOUCH TARGETS
+   ============================================ */
+
+/* Minimum 44x44px touch targets (Apple HIG) */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Better button press feedback */
+button:active,
+a:active,
+[role="button"]:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+/* ============================================
+   CARD OPTIMIZATION FOR MOBILE
+   ============================================ */
+
+/* Grid responsive adjustments */
+@media (max-width: 640px) {
+  .grid-cols-1 {
+    gap: 1rem !important;
+  }
+  
+  /* Single column on mobile */
+  .sm\:grid-cols-2,
+  .lg\:grid-cols-3,
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  /* 2 columns on tablet */
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Card hover effects disabled on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-\[1\.03\]:hover,
+  .hover\:shadow-xl:hover {
+    transform: none !important;
+    box-shadow: inherit !important;
+  }
+}
+
+/* ============================================
+   FILTER BAR MOBILE OPTIMIZATION
+   ============================================ */
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+/* Filter bar touch-friendly spacing */
+@media (max-width: 640px) {
+  .filter-bar-container {
+    padding: 0.75rem 0;
+  }
+  
+  .filter-bar-container button {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+}
+
+/* Horizontal scroll indicators (fade edges) */
+.scroll-fade {
+  position: relative;
+}
+
+.scroll-fade::before,
+.scroll-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scroll-fade::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(248, 250, 252, 1), transparent);
+}
+
+.scroll-fade::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(248, 250, 252, 1), transparent);
+}
+
+/* ============================================
+   MODAL OPTIMIZATION FOR MOBILE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .modal-content {
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    margin: 1rem;
+  }
+  
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* ============================================
+   IMAGE OPTIMIZATION
+   ============================================ */
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   SAFE AREA INSETS (for notched devices)
+   ============================================ */
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ============================================
+   FOOTER OPTIMIZATION
+   ============================================ */
+
+.floating-footer {
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 640px) {
+  .floating-footer {
+    padding: 0.75rem calc(0.5rem + env(safe-area-inset-left)) calc(0.75rem + env(safe-area-inset-bottom)) calc(0.5rem + env(safe-area-inset-right));
+  }
+  
+  .floating-footer button,
+  .floating-footer a {
+    min-width: 60px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================================
+   ANIMATIONS (Performance Optimized)
+   ============================================ */
+
+/* Use transform and opacity for GPU acceleration */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+/* Stagger animation delays */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================
+   TEXT OPTIMIZATION FOR MOBILE
+   ============================================ */
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Better text rendering on mobile */
+body {
+  text-rendering: optimizeLegibility;
+}
+
+/* Responsive font sizes */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.125rem !important;
+  }
+  
+  .text-6xl {
+    font-size: 3rem !important;
+  }
+  
+  .text-7xl {
+    font-size: 3.5rem !important;
+  }
+}
+
+/* ============================================
+   SPACING OPTIMIZATION
+   ============================================ */
+
+@media (max-width: 640px) {
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-8 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .gap-6 {
+    gap: 1rem;
+  }
+  
+  .space-x-3 > * + * {
+    margin-left: 0.5rem;
+  }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Hardware acceleration for transforms */
+.transform,
+.transition-transform,
+.hover\:scale-105,
+.hover\:scale-110,
+.hover\:scale-\[1\.03\] {
+  will-change: transform;
+}
+
+/* Contain paint for better rendering */
+.menu-item-card,
+.offer-card,
+.filter-btn {
+  contain: paint;
+}
+
+/* ============================================
+   INPUT & FORM OPTIMIZATION
+   ============================================ */
+
+/* Remove iOS input styling */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* Better mobile keyboard handling */
+input:focus,
+textarea:focus,
+select:focus {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+/* ============================================
+   DARK MODE SUPPORT (Optional)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  /* Add dark mode styles if needed */
+  :root {
+    color-scheme: light; /* Force light mode for now */
+  }
+}
+
+/* ============================================
+   LANDSCAPE ORIENTATION
+   ============================================ */
+
+@media (max-width: 896px) and (orientation: landscape) {
+  .h-96 {
+    height: 50vh !important;
+  }
+  
+  .modal-content {
+    max-height: 85vh !important;
+  }
+}
+
+/* ============================================
+   HERO SECTION MOBILE
+   ============================================ */
+
+@media (max-width: 640px) {
+  .hero-section,
+  .relative.h-96 {
+    height: 60vh !important;
+    min-height: 400px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #dc2626;
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #dc2626;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .no-print,
+  .floating-footer,
+  .filter-bar,
+  button {
+    display: none !important;
+  }
+}
